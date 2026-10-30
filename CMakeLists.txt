@@ -7,8 +7,8 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(LLVM 17 REQUIRED CONFIG)
-find_package(Clang 17 REQUIRED CONFIG)
+find_package(LLVM 23.1 REQUIRED CONFIG)
+find_package(Clang 23.1 REQUIRED CONFIG)
 
 include(FetchContent)
 
