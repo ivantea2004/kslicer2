@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 project(kslicer2)
 
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+    cmake_policy(SET CMP0135 NEW)
+endif()
+
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(LLVM 17 REQUIRED CONFIG)
@@ -12,7 +16,6 @@ FetchContent_Declare(
     nlohmann_json
     URL https://github.com/nlohmann/json/releases/download/v3.12.0/include.zip
     SOURCE_DIR external/nlohmann
-    DOWNLOAD_EXTRACT_TIMESTAMP ON
 )
 FetchContent_Declare(
     inja
