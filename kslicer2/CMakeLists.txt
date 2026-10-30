@@ -15,6 +15,12 @@ add_executable(kslicer2
     template_rendering.cpp
 )
 
+set_target_properties(LLVMDebugInfoPDB PROPERTIES INTERFACE_LINK_LIBRARIES "")
+
+if(WIN32 AND(NOT MINGW))
+    target_compile_definitions(kslicer2 PRIVATE CLANG_BUILD_STATIC)
+endif()
+
 target_compile_options(kslicer2 PRIVATE -include ${CMAKE_CURRENT_SOURCE_DIR}/do_not_use_printf_and_cout_use_kslicer_outs_intead.h)
 target_compile_definitions(kslicer2 PRIVATE ${LLVM_DEFINITIONS} ${CLANG_DEFINITIONS})
 target_include_directories(kslicer2 SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
