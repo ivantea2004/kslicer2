@@ -26,4 +26,9 @@ target_compile_definitions(kslicer2 PRIVATE ${LLVM_DEFINITIONS} ${CLANG_DEFINITI
 target_include_directories(kslicer2 SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
 target_link_directories(kslicer2 PRIVATE ${LLVM_LIBRARY_DIRS})
 target_link_libraries(kslicer2 PRIVATE clangTooling inja)
-target_compile_options(kslicer2 PRIVATE -Wall -Wextra -Werror)
+
+if(MSVC)
+    target_compile_options(kslicer2 PRIVATE /W4)
+else()
+    target_compile_options(kslicer2 PRIVATE -Wall -Wextra)
+endif()
