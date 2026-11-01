@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 project(kslicer2)
 
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.30)
+    cmake_policy(SET CMP0168 NEW)
+endif()
+
 if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
     cmake_policy(SET CMP0135 NEW)
 endif()
