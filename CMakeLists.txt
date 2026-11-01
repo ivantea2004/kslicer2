@@ -34,19 +34,19 @@ target_include_directories(inja SYSTEM INTERFACE ${inja_SOURCE_DIR}/..)
 target_link_libraries(inja INTERFACE nlohmann_json)
 
 add_executable(kslicer2
-    kslicer2/main.cpp
-    kslicer2/io.cpp
-    kslicer2/utils.cpp
-    kslicer2/errors.cpp
-    kslicer2/codegen_host.cpp
-    kslicer2/class_info.cpp
-    kslicer2/codegen.cpp
-    kslicer2/compiler.cpp
-    kslicer2/command_line.cpp
-    kslicer2/command_line_parser.cpp
-    kslicer2/config.cpp
-    kslicer2/kslicer_cpp_attributes.cpp
-    kslicer2/template_rendering.cpp
+    src/main.cpp
+    src/io.cpp
+    src/utils.cpp
+    src/errors.cpp
+    src/codegen_host.cpp
+    src/class_info.cpp
+    src/codegen.cpp
+    src/compiler.cpp
+    src/command_line.cpp
+    src/command_line_parser.cpp
+    src/config.cpp
+    src/kslicer_cpp_attributes.cpp
+    src/template_rendering.cpp
 )
 
 # Imported target LLVMDebugInfoPDB wants to link with a library which probably wouldn't be present.
@@ -63,9 +63,9 @@ if(WIN32 AND(NOT MINGW))
 endif()
 
 if(MSVC)
-    target_compile_options(kslicer2 PRIVATE /FI ${CMAKE_CURRENT_SOURCE_DIR}/kslicer2/do_not_use_printf_and_cout_use_kslicer_outs_intead.h)
+    target_compile_options(kslicer2 PRIVATE /FI ${CMAKE_CURRENT_SOURCE_DIR}/src/do_not_use_printf_and_cout_use_kslicer_outs_intead.h)
 else()
-    target_compile_options(kslicer2 PRIVATE -include ${CMAKE_CURRENT_SOURCE_DIR}/kslicer2/do_not_use_printf_and_cout_use_kslicer_outs_intead.h)
+    target_compile_options(kslicer2 PRIVATE -include ${CMAKE_CURRENT_SOURCE_DIR}/src/do_not_use_printf_and_cout_use_kslicer_outs_intead.h)
 endif()
 
 target_include_directories(kslicer2 SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
