@@ -7,15 +7,8 @@ namespace clang {
     class FileID;
 }
 namespace kslicer {
-    using llvm::outs, llvm::errs;
 
     llvm::raw_ostream& operator<<(llvm::raw_ostream& s, const std::filesystem::path& p);
-
-    // prints kslicer: error:
-    llvm::raw_ostream& kslicer_error();
-
-    // prints kslicer: warning:
-    llvm::raw_ostream& kslicer_warning();
 
     class [[nodiscard]] FileScope {
     public:
@@ -37,6 +30,6 @@ namespace kslicer {
     };
 
     FileScope read_entire_text_file(const std::filesystem::path& file_path);
-    bool write_entire_text_file(const std::filesystem::path& file_path, const std::string& data);
+    [[nodiscard]] bool write_entire_text_file(const std::filesystem::path& file_path, const std::string& data);
 
 } // namespace kslicer

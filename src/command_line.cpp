@@ -14,10 +14,10 @@ namespace kslicer {
     }
 
     void CommandLine::dump() const {
-        outs() << "kslicer_directory: " << kslicer_directory << "\n";
-        outs() << "config_path: " << config_path << "\n";
-        outs() << "verbose: " << verbose << "\n";
-        outs() << "shader_compiler: " << shader_compiler << "\n";
+        llvm::outs() << "kslicer_directory: " << kslicer_directory << "\n";
+        llvm::outs() << "config_path: " << config_path << "\n";
+        llvm::outs() << "verbose: " << verbose << "\n";
+        llvm::outs() << "shader_compiler: " << shader_compiler << "\n";
     }
 
 } // namespace kslicer

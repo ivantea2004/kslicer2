@@ -40,17 +40,17 @@ namespace kslicer {
 
     void Config::dump() const {
 
-        outs() << "class_name: " << class_name << "\n";
-        outs() << "suffix: " << suffix << "\n";
-        outs() << "shaders_directory_prefix: " << shaders_directory_prefix << "\n";
-        outs() << "shader_compiler: " << shader_compiler << "\n";
+        llvm::outs() << "class_name: " << class_name << "\n";
+        llvm::outs() << "suffix: " << suffix << "\n";
+        llvm::outs() << "shaders_directory_prefix: " << shaders_directory_prefix << "\n";
+        llvm::outs() << "shader_compiler: " << shader_compiler << "\n";
         for (size_t i = 0; i < sources.size(); ++i) {
-            outs() << "sources[" << i << "]: " << sources[i] << "\n";
+            llvm::outs() << "sources[" << i << "]: " << sources[i] << "\n";
         }
         for (size_t i = 0; i < include_directories.size(); ++i) {
-            outs() << "include_directories[" << i << "]: " << include_directories[i] << "\n";
+            llvm::outs() << "include_directories[" << i << "]: " << include_directories[i] << "\n";
         }
-        outs() << "shaders_directory: " << shaders_directory << "\n";
+        llvm::outs() << "shaders_directory: " << shaders_directory << "\n";
     }
 
 } // namespace kslicer

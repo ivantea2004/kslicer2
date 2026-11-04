@@ -22,11 +22,11 @@ namespace kslicer {
         DeclContext::lookup_result res = translation_unit_declaration_context->lookup(&identifier_info);
 
         if (res.empty()) {
-            outs() << name << " is not found\n";
+            llvm::outs() << name << " is not found\n";
             exit(1);
         }
         if (!res.isSingleResult()) {
-            outs() << name << " is not unique\n";
+            llvm::outs() << name << " is not unique\n";
             exit(1);
         }
         return res.front();

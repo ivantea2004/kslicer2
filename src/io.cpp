@@ -10,10 +10,6 @@ namespace kslicer {
 
     llvm::raw_ostream& operator<<(llvm::raw_ostream& s, const std::filesystem::path& p) { return s << p.u8string(); }
 
-    llvm::raw_ostream& kslicer_error() { return llvm::WithColor::error(llvm::errs(), "kslicer"); }
-
-    llvm::raw_ostream& kslicer_warning() { return llvm::WithColor::warning(llvm::errs(), "kslicer"); }
-
     FileScope::FileScope(const clang::FileID& id, std::string data) : id_(id.getHashValue()), data_(std::move(data)) {
         get_standalone_diagnostics_engine().getClient()->BeginSourceFile({});
     }
@@ -40,7 +36,7 @@ namespace kslicer {
             }
         } else {
             std::error_code e = buffer.getError();
-            kslicer_error() << file_path.u8string() << ": " << e.message() << "\n";
+            diagnostic(make_error("%0: %1")) << e.message() << file_path.u8string();
             return {{}, ""};
         }
     }
@@ -50,7 +46,7 @@ namespace kslicer {
         std::error_code e;
         llvm::raw_fd_ostream file(file_path.u8string(), e, llvm::sys::fs::OF_TextWithCRLF);
         if (e) {
-            kslicer_error() << file_path.u8string() << ": " << e.message() << "\n";
+            diagnostic(make_error("%0: %1")) << e.message() << file_path.u8string();
             return false;
         }
         file << data;

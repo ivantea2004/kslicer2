@@ -3,6 +3,7 @@
 #include "class_info.h"
 #include "codegen.h"
 #include "errors.h"
+#include "io.h"
 #include "template_rendering.h"
 #include "utils.h"
 #include "clang/AST/Attr.h"

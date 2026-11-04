@@ -1,12 +1,11 @@
 #pragma once
-#include "io.h"
 #include <clang/AST/AST.h>
 #include <functional>
+#include <llvm/Support/raw_ostream.h>
 #include <string>
 #include <vector>
 
-#define KSLICER_ACCERT(cond)                                                                                           \
-    (!!(cond) ? (void)0 : (::kslicer::kslicer_error() << "assertion failed: " << #cond << "\n", abort()))
+#define KSLICER_ACCERT(cond) (!!(cond) ? (void)0 : (llvm::errs() << "assertion failed: " << #cond << "\n", abort()))
 
 namespace clang {
     class CompilerInstance;

@@ -39,14 +39,14 @@ namespace kslicer {
     }
 
     void ClassInfo::dump() const {
-        outs() << "Kernels (" << kernels.size() << "):\n";
+        llvm::outs() << "Kernels (" << kernels.size() << "):\n";
         for (const KernelInfo& i : kernels) {
-            outs() << i.decl->getNameAsString() << "\n";
+            llvm::outs() << i.decl->getNameAsString() << "\n";
         }
 
-        outs() << "\nControl functions (" << control_functions.size() << "):\n";
+        llvm::outs() << "\nControl functions (" << control_functions.size() << "):\n";
         for (const ControlFunctionInfo& i : control_functions) {
-            outs() << i.decl->getNameAsString() << "\n";
+            llvm::outs() << i.decl->getNameAsString() << "\n";
         }
     }
 
@@ -256,7 +256,7 @@ namespace kslicer {
             if (n[0] == 'u' && n[1] == 'i' && n[2] == 'n' && n[3] == 't')
                 return;
         }
-        outs() << "Struct: " << decl->getNameAsString() << "\n";
+        llvm::outs() << "Struct: " << decl->getNameAsString() << "\n";
         for (auto i : used_structs) {
             if (i == decl) {
                 return;

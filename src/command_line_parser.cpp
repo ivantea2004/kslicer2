@@ -1,4 +1,5 @@
 #include "command_line_parser.h"
+#include "diagnostics.h"
 #include "io.h"
 
 #ifdef _WIN32
@@ -19,7 +20,7 @@ namespace kslicer {
                                                           [](LPWSTR* s) { LocalFree(s); });
         if (!argv) {
             std::error_code e = llvm::mapWindowsError(::GetLastError());
-            kslicer_error() << e.message() << "\n";
+            diagnostic(make_error("%0")) << e.message();
             return false;
         }
 #endif
@@ -35,7 +36,7 @@ namespace kslicer {
                     is_known_option = true;
                     if (args_[j].store) {
                         if (i + 1 >= argc) {
-                            kslicer_error() << "missing value after " << arg << "\n";
+                            diagnostic(make_error("missing value after %0")) << arg.u8string();
                             return false;
                         }
                         set_args[j] = true;
@@ -49,13 +50,13 @@ namespace kslicer {
             }
             if (!is_known_option) {
                 error = true;
-                kslicer_error() << "unrecognized command line option '" << arg << "'\n";
+                diagnostic(make_error("unrecognized command line option '%0'")) << arg.u8string();
             }
         }
 
         for (size_t i = 0; i < args_.size(); ++i) {
             if (!args_[i].is_optional && !set_args[i]) {
-                kslicer_error() << "option " << args_[i].name << " is missing\n";
+                diagnostic(make_error("option '%0' is missing")) << args_[i].name;
                 error = true;
             }
         }
