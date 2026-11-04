@@ -41,6 +41,8 @@ add_executable(kslicer2
     src/main.cpp
     src/io.cpp
     src/utils.cpp
+    src/standalone_diagnostics_engine.cpp
+    src/diagnostics.cpp
     src/errors.cpp
     src/codegen_host.cpp
     src/class_info.cpp

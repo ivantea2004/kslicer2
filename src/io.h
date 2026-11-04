@@ -1,7 +1,11 @@
 #pragma once
+#include "diagnostics.h"
 #include <filesystem>
 #include <llvm/Support/raw_ostream.h>
 
+namespace clang {
+    class FileID;
+}
 namespace kslicer {
     using llvm::outs, llvm::errs;
 
@@ -13,6 +17,26 @@ namespace kslicer {
     // prints kslicer: warning:
     llvm::raw_ostream& kslicer_warning();
 
-    bool read_entire_text_file(const std::filesystem::path& file_path, std::string& data);
+    class [[nodiscard]] FileScope {
+    public:
+        FileScope(const clang::FileID& id, std::string data);
+        FileScope(const FileScope&) = delete;
+        FileScope(FileScope&&) = delete;
+        FileScope& operator=(const FileScope&) = delete;
+        FileScope& operator=(FileScope&&) = delete;
+        ~FileScope();
+
+        operator bool() const { return id_ != 0; }
+
+        void get_id(clang::FileID& id) const;
+        const std::string& data() const;
+
+    private:
+        uint32_t id_;
+        std::string data_;
+    };
+
+    FileScope read_entire_text_file(const std::filesystem::path& file_path);
     bool write_entire_text_file(const std::filesystem::path& file_path, const std::string& data);
+
 } // namespace kslicer
