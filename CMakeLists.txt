@@ -40,6 +40,7 @@ target_link_libraries(inja INTERFACE nlohmann_json)
 add_executable(kslicer2
     src/main.cpp
     src/io.cpp
+    src/assert.cpp
     src/is_debugger_present.cpp
     src/utils.cpp
     src/standalone_diagnostics_engine.cpp

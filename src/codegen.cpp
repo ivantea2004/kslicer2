@@ -76,7 +76,7 @@ namespace kslicer {
                 emit(", ");
         }
         emit(")\n");
-        KSLICER_ACCERT(function->getBody());
+        KSLICER_ASSERT(function->getBody());
         render_statement(function->getBody(), 0);
     }
 
@@ -99,7 +99,7 @@ namespace kslicer {
 
             for (auto i : stmt->getDeclGroup()) {
                 auto var = dyn_cast<VarDecl>(i);
-                KSLICER_ACCERT(var);
+                KSLICER_ASSERT(var);
                 emit_indent(indent);
                 render_type(var->getType());
                 emit(" ");
@@ -252,7 +252,7 @@ namespace kslicer {
                     diagnostic(Error("unknown overloaded operator"), expr->getExprLoc());
                 }
             } else {
-                KSLICER_ACCERT(expr->getNumArgs() == 2);
+                KSLICER_ASSERT(expr->getNumArgs() == 2);
                 std::string s = getOperatorSpelling(expr->getOperator());
 
                 std::string known_binary_operators[] = {
@@ -357,7 +357,7 @@ namespace kslicer {
             // }
         } else if (auto expr = dyn_cast<CallExpr>(expr_)) {
             auto func = dyn_cast<FunctionDecl>(expr->getCalleeDecl());
-            KSLICER_ACCERT(func);
+            KSLICER_ASSERT(func);
             if (func->getNameAsString() == "__builtin_popcount") {
                 emit("countbits");
             } else {

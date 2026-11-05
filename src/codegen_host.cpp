@@ -63,7 +63,7 @@ namespace kslicer {
                 kernel["WGSizeY"] = 8;
                 kernel["WGSizeZ"] = 8;
             } else {
-                KSLICER_ACCERT(false);
+                KSLICER_ASSERT(false);
             }
 
             kernel["AuxArgs"] = json::array();
@@ -226,8 +226,8 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
                 codegen.buffer += ")\n";
                 codegen.render_statement(i.body, 1);
                 codegen.buffer += "}\n";
-                write_entire_text_file(config.shaders_directory / (i.decl->getNameAsString() + ".slang"),
-                                       codegen.buffer);
+                (void)write_entire_text_file(config.shaders_directory / (i.decl->getNameAsString() + ".slang"),
+                                             codegen.buffer);
             }
 
             data["Kernels"].push_back(kernel);
@@ -317,9 +317,9 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
                     std::string size_value;
                     for (const AnnotateAttr* attr : p->specific_attrs<AnnotateAttr>()) {
                         if (attr->getAnnotation() == StringRef{"kslicer::size"}) {
-                            KSLICER_ACCERT(attr->args_size() == 1);
+                            KSLICER_ASSERT(attr->args_size() == 1);
                             const StringLiteral* value = dyn_cast<StringLiteral>(*attr->args_begin());
-                            KSLICER_ACCERT(value);
+                            KSLICER_ASSERT(value);
                             std::string text = string_from_source_range(value->getSourceRange());
                             text = text.substr(1, text.length() - 2);
                             outs() << i.decl->getNameAsString() << ": " << p->getNameAsString() << ".size = " << text
@@ -612,7 +612,7 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
         //         kernel["WGSizeY"] = 8;
         //         kernel["WGSizeZ"] = 8;
         //     } else {
-        //         KSLICER_ACCERT(false);
+        //         KSLICER_ASSERT(false);
         //     }
 
         //     kernel["AuxArgs"] = json::array();

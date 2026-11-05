@@ -1,5 +1,3 @@
-
-#include "utils.h"
 #include <clang/Sema/ParsedAttr.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaDiagnostic.h>
@@ -29,7 +27,7 @@ namespace kslicer {
 
         AttrHandling handleDeclAttribute(Sema& sema, Decl* decl, const ParsedAttr& attr) const override {
 
-            KSLICER_ACCERT(attr.getNumArgs() == 1);
+            KSLICER_ASSERT(attr.getNumArgs() == 1);
             Expr* args[] = {attr.getArgAsExpr(0)};
             decl->addAttr(AnnotateAttr::Create(sema.Context, "kslicer::size", args, 1, attr.getRange()));
             return AttributeApplied;

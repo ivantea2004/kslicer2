@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 
-#define KSLICER_ACCERT(cond) (!!(cond) ? (void)0 : (llvm::errs() << "assertion failed: " << #cond << "\n", abort()))
-
 namespace clang {
     class CompilerInstance;
 } // namespace clang

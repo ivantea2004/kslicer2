@@ -85,10 +85,10 @@ namespace kslicer {
     QualType get_vector_specialization_type(QualType type) {
         type = type.getCanonicalType().getUnqualifiedType();
         auto record = type->getAsRecordDecl();
-        KSLICER_ACCERT(record);
+        KSLICER_ASSERT(record);
         // outs() << record->getNameAsString() << "\n";
         auto template_ = dyn_cast<ClassTemplateSpecializationDecl>(record);
-        KSLICER_ACCERT(template_);
+        KSLICER_ASSERT(template_);
         QualType element_type = template_->getTemplateArgs().get(0).getAsType();
         return element_type;
     }
@@ -144,14 +144,14 @@ namespace kslicer {
 
         // if (auto record = type->getAsRecordDecl()) {
 
-        //     // KSLICER_ACCERT(record->getDefinition());
+        //     // KSLICER_ASSERT(record->getDefinition());
         //     // record = dyn_cast<>;
         //     if (auto t = dyn_cast<ClassTemplateSpecializationDecl>(decl)) {
         //         (void)resolve_type(t->getTemplateArgs().get(0).getAsType());
         //         return s;
         //     } else {
         //         decl = decl->getDefinition();
-        //         KSLICER_ACCERT(decl);
+        //         KSLICER_ASSERT(decl);
         //         for (auto i : structs)
         //             if (i == decl)
         //                 return s.substr(6);
@@ -192,7 +192,7 @@ namespace kslicer {
             }
             return a;
         } else {
-            KSLICER_ACCERT(false);
+            KSLICER_ASSERT(false);
         }
     }
 

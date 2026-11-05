@@ -1,5 +1,4 @@
 #include "compiler.h"
-#include "utils.h"
 #include <clang/AST/ASTConsumer.h>
 #include <clang/Frontend/FrontendAction.h>
 #include <clang/Tooling/CommonOptionsParser.h>
@@ -12,7 +11,7 @@ namespace kslicer {
 
     static CompilerInstance* compiler_ = nullptr;
     CompilerInstance* compiler() {
-        KSLICER_ACCERT(compiler_);
+        KSLICER_ASSERT(compiler_);
         return compiler_;
     }
 
