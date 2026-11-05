@@ -8,7 +8,6 @@ namespace kslicer {
     bool render_template(const nlohmann::json& data, std::filesystem::path template_path,
                          std::filesystem::path output_path) {
         if (auto scope = read_entire_text_file(template_path)) {
-            auto inja_error = Error("inja: %0");
             try {
                 inja::Environment env;
                 env.set_trim_blocks(true);
@@ -19,10 +18,10 @@ namespace kslicer {
             } catch (const inja::FileError& e) {
                 // We already successfully opened file ourselves in read_entire_text_file().
                 // So, if inja has a problem with that, we just reoutput its error.
-                diagnostic(inja_error) << e.message;
+                diagnostic(Error("%0")) << e.message;
                 return false;
             } catch (const inja::InjaError& e) {
-                diagnostic(inja_error, scope, e.location.line, e.location.column) << e.message;
+                diagnostic(Error("%0"), scope, e.location.line, e.location.column) << e.message;
                 return false;
             }
         } else {
