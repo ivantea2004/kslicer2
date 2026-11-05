@@ -19,12 +19,12 @@ include(FetchContent)
 FetchContent_Declare(
     nlohmann_json
     URL https://github.com/nlohmann/json/releases/download/v3.12.0/include.zip
-    SOURCE_DIR external/nlohmann
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann
 )
 FetchContent_Declare(
     inja
     URL https://github.com/pantor/inja/releases/download/v3.5.0/inja.hpp
-    SOURCE_DIR external/inja/include/inja
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/inja/include/inja
     DOWNLOAD_NO_EXTRACT ON
 )
 
@@ -77,7 +77,7 @@ endif()
 target_include_directories(kslicer2 PRIVATE src)
 target_include_directories(kslicer2 SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
 target_link_directories(kslicer2 PRIVATE ${LLVM_LIBRARY_DIRS})
-target_link_libraries(kslicer2 PRIVATE clangTooling inja)
+target_link_libraries(kslicer2 PRIVATE clangTooling inja nlohmann_json)
 
 if(MSVC)
     target_compile_options(kslicer2 PRIVATE /W4)
