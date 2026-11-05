@@ -48,6 +48,7 @@ namespace kslicer {
 
     int invoke_compiler(const CompilerParams& params, std::function<void()> callback) {
         std::vector<std::string> args;
+        args.push_back("-std=c++17");
 
         for (auto i : params.include_directories) {
             args.push_back("-I");
