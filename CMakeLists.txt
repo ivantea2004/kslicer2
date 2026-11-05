@@ -38,22 +38,23 @@ target_include_directories(inja SYSTEM INTERFACE ${inja_SOURCE_DIR}/..)
 target_link_libraries(inja INTERFACE nlohmann_json)
 
 add_executable(kslicer2
-    src/main.cpp
-    src/io.cpp
-    src/assert.cpp
-    src/is_debugger_present.cpp
-    src/utils.cpp
-    src/standalone_diagnostics_engine.cpp
-    src/diagnostics.cpp
-    src/codegen_host.cpp
-    src/class_info.cpp
-    src/codegen.cpp
-    src/compiler.cpp
-    src/command_line.cpp
-    src/command_line_parser.cpp
-    src/config.cpp
-    src/kslicer_cpp_attributes.cpp
-    src/template_rendering.cpp
+    kslicer/utils/io.cpp
+    kslicer/utils/assert.cpp
+    kslicer/utils/is_debugger_present.cpp
+    kslicer/utils/standalone_diagnostics_engine.cpp
+    kslicer/utils/diagnostics.cpp
+    kslicer/utils/compiler.cpp
+    kslicer/utils/command_line_parser.cpp
+    kslicer/utils/template_rendering.cpp
+
+    kslicer/main.cpp
+    kslicer/utils.cpp
+    kslicer/codegen_host.cpp
+    kslicer/class_info.cpp
+    kslicer/codegen.cpp
+    kslicer/command_line.cpp
+    kslicer/config.cpp
+    kslicer/kslicer_cpp_attributes.cpp
 )
 
 # Imported target LLVMDebugInfoPDB wants to link with a library which probably wouldn't be present.
@@ -75,7 +76,7 @@ else()
     target_compile_options(kslicer2 PRIVATE -include forced_include.h)
 endif()
 
-target_include_directories(kslicer2 PRIVATE src)
+target_include_directories(kslicer2 PRIVATE kslicer kslicer/utils)
 target_include_directories(kslicer2 SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
 target_link_directories(kslicer2 PRIVATE ${LLVM_LIBRARY_DIRS})
 target_link_libraries(kslicer2 PRIVATE clangTooling inja nlohmann_json)
