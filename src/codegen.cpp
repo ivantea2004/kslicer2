@@ -1,5 +1,5 @@
 #include "codegen.h"
-#include "errors.h"
+#include "diagnostics.h"
 #include "utils.h"
 
 namespace kslicer {
@@ -172,15 +172,16 @@ namespace kslicer {
             emit("default:\n");
             render_statement(stmt->getSubStmt(), indent);
         } else {
-            error_unknown_stmt_class(stmt_);
+            diagnostic(Error("unknown statement class %0"), stmt->getBeginLoc()) << stmt->getStmtClassName();
         }
     }
 
     void Codegen::render_expression(const Expr* expr_) {
         if (auto expr = dyn_cast<ExprWithCleanups>(expr_)) {
             // Lets not do destroying of temporary variables
-            if (expr->getNumObjects() > 0)
-                error_expr_needs_cleanups(expr);
+            if (expr->getNumObjects() > 0) {
+                diagnostic(Error("expression needs cleanups"), expr->getExprLoc());
+            }
             render_expression(expr->getSubExpr());
         } else if (auto expr = dyn_cast<FullExpr>(expr_)) {
             render_expression(expr->getSubExpr());
@@ -248,7 +249,7 @@ namespace kslicer {
                     emit(s);
                     render_expression(expr->getArg(0));
                 } else {
-                    error_unknown_overloaded_operator(expr);
+                    diagnostic(Error("unknown overloaded operator"), expr->getExprLoc());
                 }
             } else {
                 KSLICER_ACCERT(expr->getNumArgs() == 2);
@@ -270,7 +271,7 @@ namespace kslicer {
                     render_expression(expr->getArg(1));
                     emit("]");
                 } else {
-                    error_unknown_overloaded_operator(expr);
+                    diagnostic(Error("unknown overloaded operator"), expr->getExprLoc());
                 }
             }
         } else if (auto expr = dyn_cast<ArraySubscriptExpr>(expr_)) {
@@ -379,7 +380,7 @@ namespace kslicer {
             }
             emit("}");
         } else {
-            error_unknown_stmt_class(expr_);
+            diagnostic(Error("unknown expression class %0"), expr->getExprLoc()) << expr->getStmtClassName();
         }
     }
 

@@ -2,7 +2,6 @@
 // #include "class.h"
 #include "class_info.h"
 #include "codegen.h"
-#include "errors.h"
 #include "io.h"
 #include "template_rendering.h"
 #include "utils.h"
@@ -331,7 +330,7 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
                     }
 
                     if (!found_size_annotation) {
-                        error_missing_size_annotation(p);
+                        diagnostic(Error("missing size annotation"), p->getLocation());
                     }
 
                     auto var = json::object();

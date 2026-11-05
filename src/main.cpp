@@ -3,16 +3,15 @@
 #include "command_line.h"
 #include "compiler.h"
 #include "config.h"
-#include "errors.h"
+#include "diagnostics.h"
 #include "utils.h"
-#include <iostream>
 namespace kslicer {
     using namespace clang;
 
     void handle_translation_unit(std::filesystem::path kslicer_directory, const Config& config) {
         auto decl = find_global_declaration(config.class_name);
         ClassInfo class_info(dyn_cast<CXXRecordDecl>(decl));
-        note_found(decl->getLocation(), "found");
+        diagnostic(Remark("found class"), decl->getLocation());
         class_info.dump();
         codegen(kslicer_directory, config, class_info);
     }

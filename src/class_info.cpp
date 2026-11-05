@@ -1,5 +1,5 @@
 #include "class_info.h"
-#include "errors.h"
+#include "diagnostics.h"
 #include "utils.h"
 
 namespace kslicer {
@@ -34,7 +34,7 @@ namespace kslicer {
                 }
             }
         }
-        error_invalid_for_loop_condition(cond);
+        diagnostic(Error("invalid for loop condition"), cond->getExprLoc());
         return nullptr;
     }
 
@@ -98,7 +98,7 @@ namespace kslicer {
                     auto decl = expr->getDecl();
                     if (auto var = dyn_cast<VarDecl>(decl)) {
                         if (var->isConstexpr()) {
-                            note_found(decl->getLocation(), "global");
+                            diagnostic(Remark("found global"), decl->getLocation());
                             for (auto i : used_global_constants) {
                                 if (i == decl) {
                                     return;
