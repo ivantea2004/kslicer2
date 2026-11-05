@@ -1,6 +1,6 @@
-#include "io.h"
-#include "diagnostics.h"
-#include "standalone_diagnostics_engine.h"
+#include "kslicer/utils/io.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/standalone_diagnostics_engine.hpp"
 #include <clang/Basic/LangOptions.h>
 #include <clang/Basic/SourceManager.h>
 #include <llvm/Support/FileSystem.h>

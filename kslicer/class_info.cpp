@@ -1,6 +1,6 @@
-#include "class_info.h"
-#include "diagnostics.h"
-#include "utils.h"
+#include "kslicer/class_info.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils.hpp"
 
 namespace kslicer {
 

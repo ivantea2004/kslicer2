@@ -1,6 +1,6 @@
-#include "command_line.h"
-#include "command_line_parser.h"
-#include "io.h"
+#include "kslicer/command_line.hpp"
+#include "kslicer/utils/command_line_parser.hpp"
+#include "kslicer/utils/io.hpp"
 
 namespace kslicer {
 

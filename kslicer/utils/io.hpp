@@ -1,5 +1,4 @@
 #pragma once
-#include "diagnostics.h"
 #include <filesystem>
 #include <llvm/Support/raw_ostream.h>
 

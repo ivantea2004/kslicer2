@@ -1,6 +1,6 @@
-#include "command_line_parser.h"
-#include "diagnostics.h"
-#include "io.h"
+#include "kslicer/utils/command_line_parser.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/io.hpp"
 
 #ifdef _WIN32
 #include <Windows.h>

@@ -1,5 +1,5 @@
 #pragma once
-#include "class_info.h"
+#include "kslicer/class_info.hpp"
 #include <clang/AST/AST.h>
 
 namespace kslicer {

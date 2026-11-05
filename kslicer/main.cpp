@@ -1,10 +1,10 @@
-#include "class_info.h"
-#include "codegen_host.h"
-#include "command_line.h"
-#include "compiler.h"
-#include "config.h"
-#include "diagnostics.h"
-#include "utils.h"
+#include "kslicer/codegen_host.hpp"
+#include "kslicer/command_line.hpp"
+#include "kslicer/config.hpp"
+#include "kslicer/utils.hpp"
+#include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/is_debugger_present.hpp"
 #include <llvm/Support/PrettyStackTrace.h>
 
 namespace kslicer {
@@ -44,7 +44,6 @@ namespace kslicer {
     }
 } // namespace kslicer
 
-#include "is_debugger_present.h"
 #ifdef _WIN32
 #include <Windows.h>
 #endif

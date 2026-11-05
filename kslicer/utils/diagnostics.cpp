@@ -1,7 +1,7 @@
-#include "diagnostics.h"
-#include "compiler.h"
-#include "io.h"
-#include "standalone_diagnostics_engine.h"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/io.hpp"
+#include "kslicer/utils/standalone_diagnostics_engine.hpp"
 #include <clang/Basic/Diagnostic.h>
 #include <clang/Basic/SourceManager.h>
 #include <clang/Frontend/CompilerInstance.h>

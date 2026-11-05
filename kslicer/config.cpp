@@ -1,5 +1,6 @@
-#include "config.h"
-#include "io.h"
+#include "kslicer/config.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/io.hpp"
 #define JSON_DIAGNOSTIC_POSITIONS 1
 #include <nlohmann/json.hpp>
 namespace kslicer {

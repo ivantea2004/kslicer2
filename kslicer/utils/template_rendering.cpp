@@ -1,6 +1,6 @@
-#include "template_rendering.h"
-#include "diagnostics.h"
-#include "io.h"
+#include "kslicer/utils/template_rendering.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/io.hpp"
 #include <inja/inja.hpp>
 
 namespace kslicer {

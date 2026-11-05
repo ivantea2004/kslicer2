@@ -1,4 +1,4 @@
-#include "is_debugger_present.h"
+#include "kslicer/utils/is_debugger_present.hpp"
 #if defined(_WIN32)
 #include <Windows.h>
 #elif defined(__linux__)

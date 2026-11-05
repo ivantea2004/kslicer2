@@ -1,12 +1,12 @@
-#include "codegen_host.h"
-// #include "class.h"
-#include "class_info.h"
-#include "codegen.h"
-#include "io.h"
-#include "template_rendering.h"
-#include "utils.h"
-#include "clang/AST/Attr.h"
+#include "kslicer/codegen_host.hpp"
+#include "kslicer/class_info.hpp"
+#include "kslicer/codegen.hpp"
+#include "kslicer/utils.hpp"
+#include "kslicer/utils/diagnostics.hpp"
+#include "kslicer/utils/io.hpp"
+#include "kslicer/utils/template_rendering.hpp"
 #include <clang/AST/AST.h>
+#include <clang/AST/Attr.h>
 #include <nlohmann/json.hpp>
 
 namespace kslicer {
