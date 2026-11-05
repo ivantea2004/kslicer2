@@ -11,7 +11,35 @@ namespace kslicer {
     using CustomDiagDesc = clang::DiagnosticIDs::CustomDiagDesc;
     class FileScope;
 
-    CustomDiagDesc make_error(const char* format);
+    struct Error {
+        template <size_t N>
+        explicit Error(const char (&format)[N]) : format_(format) {}
+
+        operator CustomDiagDesc() const;
+
+    private:
+        const char* format_;
+    };
+
+    struct Warning {
+        template <size_t N>
+        explicit Warning(const char (&format)[N]) : format_(format) {}
+
+        operator CustomDiagDesc() const;
+
+    private:
+        const char* format_;
+    };
+
+    struct Remark {
+        template <size_t N>
+        explicit Remark(const char (&format)[N]) : format_(format) {}
+
+        operator CustomDiagDesc() const;
+
+    private:
+        const char* format_;
+    };
 
     DiagnosticBuilder diagnostic(const CustomDiagDesc& desc);
     DiagnosticBuilder diagnostic(const CustomDiagDesc& desc, const FileScope& scope, size_t offset);

@@ -8,7 +8,7 @@ namespace kslicer {
     bool render_template(const nlohmann::json& data, std::filesystem::path template_path,
                          std::filesystem::path output_path) {
         if (auto scope = read_entire_text_file(template_path)) {
-            auto inja_error = make_error("inja: %0");
+            auto inja_error = Error("inja: %0");
             try {
                 inja::Environment env;
                 env.set_trim_blocks(true);

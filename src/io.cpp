@@ -36,7 +36,7 @@ namespace kslicer {
             }
         } else {
             std::error_code e = buffer.getError();
-            diagnostic(make_error("%0: %1")) << e.message() << file_path.u8string();
+            diagnostic(Error("%0: %1")) << e.message() << file_path.u8string();
             return {{}, ""};
         }
     }
@@ -46,7 +46,7 @@ namespace kslicer {
         std::error_code e;
         llvm::raw_fd_ostream file(file_path.u8string(), e, llvm::sys::fs::OF_TextWithCRLF);
         if (e) {
-            diagnostic(make_error("%0: %1")) << e.message() << file_path.u8string();
+            diagnostic(Error("%0: %1")) << e.message() << file_path.u8string();
             return false;
         }
         file << data;

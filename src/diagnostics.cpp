@@ -1,15 +1,25 @@
 #include "diagnostics.h"
+#include "compiler.h"
 #include "io.h"
 #include "standalone_diagnostics_engine.h"
 #include <clang/Basic/Diagnostic.h>
 #include <clang/Basic/SourceManager.h>
+#include <clang/Frontend/CompilerInstance.h>
 #include <clang/Frontend/TextDiagnosticPrinter.h>
 
 namespace kslicer {
     using namespace clang;
 
-    CustomDiagDesc make_error(const char* format) {
-        return CustomDiagDesc(clang::diag::Severity::Error, format, DiagnosticIDs::Class::CLASS_ERROR, true, true);
+    Error::operator kslicer::CustomDiagDesc() const {
+        return CustomDiagDesc(clang::diag::Severity::Error, format_, DiagnosticIDs::Class::CLASS_ERROR, true, true);
+    }
+
+    Warning::operator kslicer::CustomDiagDesc() const {
+        return CustomDiagDesc(clang::diag::Severity::Warning, format_, DiagnosticIDs::Class::CLASS_WARNING, true, true);
+    }
+
+    Remark::operator kslicer::CustomDiagDesc() const {
+        return CustomDiagDesc(clang::diag::Severity::Remark, format_, DiagnosticIDs::Class::CLASS_REMARK, true, true);
     }
 
     DiagnosticBuilder diagnostic(const DiagnosticIDs::CustomDiagDesc& desc) {
@@ -42,6 +52,11 @@ namespace kslicer {
         FileID id{};
         scope.get_id(id);
         auto loc = s.translateLineCol(id, line, column);
+        return e.Report(loc, e.getDiagnosticIDs()->getCustomDiagID(desc));
+    }
+
+    DiagnosticBuilder diagnostic(const DiagnosticIDs::CustomDiagDesc& desc, const SourceLocation& loc) {
+        auto& e = compiler()->getDiagnostics();
         return e.Report(loc, e.getDiagnosticIDs()->getCustomDiagID(desc));
     }
 
