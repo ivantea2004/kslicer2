@@ -48,6 +48,9 @@ add_executable(kslicer2
     kslicer/utils/command_line_parser.cpp
     kslicer/utils/template_rendering.cpp
 
+    kslicer/core/kslicer_main.cpp
+    kslicer/core/slicing.cpp
+
     kslicer/main.cpp
     kslicer/utils.cpp
     kslicer/codegen_host.cpp
