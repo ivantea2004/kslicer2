@@ -5,24 +5,24 @@ namespace kslicer {
 
     bool CommandLineParser::parse(const std::vector<std::filesystem::path>& args) const {
 
-        std::vector<bool> set_args(args_.size());
+        std::vector<bool> set_args(options_.size());
 
         bool error = false;
         for (size_t i = 1; i < args.size(); ++i) {
             bool is_known_option = false;
-            for (size_t j = 0; j < args_.size(); ++j) {
-                if (args[i] == args_[j].name) {
+            for (size_t j = 0; j < options_.size(); ++j) {
+                if (args[i] == options_[j].name) {
                     is_known_option = true;
-                    if (args_[j].store) {
+                    if (options_[j].store) {
                         if (i + 1 >= args.size()) {
                             diagnostic(Error("missing value after %0")) << args[i].u8string();
                             return false;
                         }
                         set_args[j] = true;
-                        args_[j].store(args_[j].destination, args[i + 1]);
+                        options_[j].store(options_[j].destination, args[i + 1]);
                         ++i;
                     } else {
-                        *static_cast<bool*>(args_[j].destination) = true;
+                        *static_cast<bool*>(options_[j].destination) = true;
                     }
                     break;
                 }
@@ -33,9 +33,9 @@ namespace kslicer {
             }
         }
 
-        for (size_t i = 0; i < args_.size(); ++i) {
-            if (!args_[i].is_optional && !set_args[i]) {
-                diagnostic(Error("option '%0' is missing")) << args_[i].name;
+        for (size_t i = 0; i < options_.size(); ++i) {
+            if (options_[i].is_required && !set_args[i]) {
+                diagnostic(Error("option '%0' is missing")) << options_[i].name;
                 error = true;
             }
         }

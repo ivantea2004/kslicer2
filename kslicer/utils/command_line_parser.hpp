@@ -9,35 +9,35 @@ namespace kslicer {
     public:
         template <typename T>
         void add_option(std::string name, T& destination) {
-            Arg arg{};
-            arg.name = name;
-            arg.store = [](void* destination, const std::filesystem::path& value) {
+            Option o{};
+            o.name = name;
+            o.store = [](void* destination, const std::filesystem::path& value) {
                 CommandLineParser::store(*static_cast<T*>(destination), value);
             };
-            arg.destination = &destination;
-            arg.is_optional = false;
-            args_.push_back(arg);
+            o.destination = &destination;
+            o.is_required = true;
+            options_.push_back(o);
         }
 
         template <typename T>
         void add_option(std::string name, std::optional<T>& destination) {
-            Arg arg{};
-            arg.name = name;
-            arg.store = [](void* destination, const std::filesystem::path& value) {
+            Option o{};
+            o.name = name;
+            o.store = [](void* destination, const std::filesystem::path& value) {
                 CommandLineParser::store(static_cast<std::optional<T>*>(destination)->emplace(), value);
             };
-            arg.destination = &destination;
-            arg.is_optional = true;
-            args_.push_back(arg);
+            o.destination = &destination;
+            o.is_required = false;
+            options_.push_back(o);
         }
 
         void add_flag(std::string name, bool& destination) {
-            Arg arg{};
-            arg.name = name;
-            arg.store = nullptr;
-            arg.destination = &destination;
-            arg.is_optional = true;
-            args_.push_back(arg);
+            Option o{};
+            o.name = name;
+            o.store = nullptr;
+            o.destination = &destination;
+            o.is_required = false;
+            options_.push_back(o);
         }
 
         bool parse(const std::vector<std::filesystem::path>& args) const;
@@ -51,14 +51,14 @@ namespace kslicer {
             destination = value.u8string();
         }
 
-        struct Arg {
+        struct Option {
             std::string name;
             void (*store)(void*, const std::filesystem::path&) = nullptr;
             void* destination = nullptr;
-            bool is_optional = false;
+            bool is_required = true;
         };
 
-        std::vector<Arg> args_;
+        std::vector<Option> options_;
     };
 
 } // namespace kslicer
