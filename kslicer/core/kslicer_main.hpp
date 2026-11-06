@@ -1,7 +1,9 @@
 #pragma once
+#include <filesystem>
+#include <vector>
 
 namespace kslicer {
 
-    int kslicer_main(int argc, char** argv);
+    int kslicer_main(const std::vector<std::filesystem::path>& args);
 
 }

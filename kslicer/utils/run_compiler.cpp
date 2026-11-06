@@ -50,17 +50,17 @@ namespace kslicer {
         RunCompilerHandler handler_;
     };
 
-    int run_compiler(const CompilerArgs& args, RunCompilerHandler handler) {
-        std::vector<std::string> cmd_args;
-        cmd_args.push_back("-std=c++17");
+    int run_compiler(const CompilerArgs& compiler_args, RunCompilerHandler handler) {
+        std::vector<std::string> args;
+        args.push_back("-std=c++17");
 
-        for (auto i : args.include_directories) {
-            cmd_args.push_back("-I");
-            cmd_args.push_back(i.u8string());
+        for (auto i : compiler_args.include_directories) {
+            args.push_back("-I");
+            args.push_back(i.u8string());
         }
 
-        clang::tooling::FixedCompilationDatabase db(".", cmd_args);
-        clang::tooling::ClangTool tool(db, {args.source.u8string()});
+        clang::tooling::FixedCompilationDatabase db(".", args);
+        clang::tooling::ClangTool tool(db, {compiler_args.source.u8string()});
         FrontendActionFactory action_factory(handler);
         try {
             return tool.run(&action_factory);

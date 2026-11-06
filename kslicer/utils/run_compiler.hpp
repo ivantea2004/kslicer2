@@ -17,6 +17,6 @@ namespace kslicer {
     };
 
     using RunCompilerHandler = std::function<void(clang::CompilerInstance&)>;
-    int run_compiler(const CompilerArgs& args, RunCompilerHandler handler);
+    int run_compiler(const CompilerArgs& compiler_args, RunCompilerHandler handler);
 
 } // namespace kslicer

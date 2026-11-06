@@ -9,10 +9,10 @@
 
 namespace kslicer {
 
-    int kslicer_main(int argc, char** argv) {
+    int kslicer_main(const std::vector<std::filesystem::path>& args) {
 
         CommandLine command_line{};
-        if (!command_line.from_args(argc, argv)) {
+        if (!command_line.from_args(args)) {
             return 1;
         }
         command_line.dump();
@@ -24,12 +24,12 @@ namespace kslicer {
         config.shader_compiler = command_line.shader_compiler.value_or(config.shader_compiler);
         config.dump();
 
-        CompilerArgs args;
-        args.source = config.sources[0];
-        args.include_directories = config.include_directories;
-        args.include_directories.push_back(command_line.kslicer_directory / "TINYSTL");
+        CompilerArgs compiler_args;
+        compiler_args.source = config.sources[0];
+        compiler_args.include_directories = config.include_directories;
+        compiler_args.include_directories.push_back(command_line.kslicer_directory / "TINYSTL");
 
-        return run_compiler(args,
+        return run_compiler(compiler_args,
                             [&](clang::CompilerInstance& compiler_instance) {
                                 set_compiler_instance(compiler_instance);
                                 slice(command_line.kslicer_directory, config);

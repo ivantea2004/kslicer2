@@ -40,7 +40,7 @@ namespace kslicer {
             args_.push_back(arg);
         }
 
-        bool parse(int argc, char** agrv) const;
+        bool parse(const std::vector<std::filesystem::path>& args) const;
 
     private:
         static void store(std::filesystem::path& destination, const std::filesystem::path& value) {
