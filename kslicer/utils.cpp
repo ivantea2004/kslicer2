@@ -1,6 +1,6 @@
 #include "kslicer/utils.hpp"
 #include "kslicer/utils/assert.hpp"
-#include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/compiler_instance.hpp"
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Lex/Lexer.h>
 
@@ -9,7 +9,7 @@ namespace kslicer {
 
     std::string string_from_source_range(SourceRange range) {
         // https://stackoverflow.com/questions/11083066/getting-the-source-behind-clangs-ast
-        const SourceManager& source_manager = compiler()->getSourceManager();
+        const SourceManager& source_manager = get_compiler_instance().getSourceManager();
         SourceLocation true_end(Lexer::getLocForEndOfToken(range.getEnd(), 0, source_manager, {}));
         return std::string(source_manager.getCharacterData(range.getBegin()),
                            source_manager.getCharacterData(true_end) -
@@ -17,9 +17,9 @@ namespace kslicer {
     }
 
     const NamedDecl* find_global_declaration(std::string name) {
-        TranslationUnitDecl* translation_unit_declaration_context =
-            compiler()->getASTContext().getTranslationUnitDecl();
-        IdentifierInfo& identifier_info = compiler()->getASTContext().Idents.get(name);
+        ASTContext& ast = get_compiler_instance().getASTContext();
+        TranslationUnitDecl* translation_unit_declaration_context = ast.getTranslationUnitDecl();
+        IdentifierInfo& identifier_info = ast.Idents.get(name);
         DeclContext::lookup_result res = translation_unit_declaration_context->lookup(&identifier_info);
 
         if (res.empty()) {

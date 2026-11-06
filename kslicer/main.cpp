@@ -2,9 +2,11 @@
 #include "kslicer/command_line.hpp"
 #include "kslicer/config.hpp"
 #include "kslicer/utils.hpp"
-#include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/compiler_instance.hpp"
 #include "kslicer/utils/diagnostics.hpp"
 #include "kslicer/utils/is_debugger_present.hpp"
+#include "kslicer/utils/run_compiler.hpp"
+#include "kslicer/utils/standalone_diagnostics_engine.hpp"
 #include <llvm/Support/PrettyStackTrace.h>
 
 namespace kslicer {
@@ -35,12 +37,17 @@ namespace kslicer {
         config.shader_compiler = command_line.shader_compiler.value_or(config.shader_compiler);
         config.dump();
 
-        CompilerParams params;
-        params.source = config.sources[0];
-        params.include_directories = config.include_directories;
-        params.include_directories.push_back(command_line.kslicer_directory / "TINYSTL");
+        CompilerArgs args;
+        args.source = config.sources[0];
+        args.include_directories = config.include_directories;
+        args.include_directories.push_back(command_line.kslicer_directory / "TINYSTL");
 
-        return invoke_compiler(params, [&]() { handle_translation_unit(command_line.kslicer_directory, config); });
+        return run_compiler(args,
+                            [&](CompilerInstance& compiler_instance) {
+                                set_compiler_instance(compiler_instance);
+                                handle_translation_unit(command_line.kslicer_directory, config);
+                            }) ||
+               get_standalone_diagnostics_engine().hasErrorOccurred();
     }
 } // namespace kslicer
 

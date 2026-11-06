@@ -43,7 +43,8 @@ add_executable(kslicer2
     kslicer/utils/is_debugger_present.cpp
     kslicer/utils/standalone_diagnostics_engine.cpp
     kslicer/utils/diagnostics.cpp
-    kslicer/utils/compiler.cpp
+    kslicer/utils/run_compiler.cpp
+    kslicer/utils/compiler_instance.cpp
     kslicer/utils/command_line_parser.cpp
     kslicer/utils/template_rendering.cpp
 

@@ -1,5 +1,5 @@
 #include "kslicer/utils/diagnostics.hpp"
-#include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/compiler_instance.hpp"
 #include "kslicer/utils/io.hpp"
 #include "kslicer/utils/standalone_diagnostics_engine.hpp"
 #include <clang/Basic/Diagnostic.h>
@@ -56,7 +56,7 @@ namespace kslicer {
     }
 
     DiagnosticBuilder diagnostic(const DiagnosticIDs::CustomDiagDesc& desc, const SourceLocation& loc) {
-        auto& e = compiler()->getDiagnostics();
+        auto& e = get_compiler_instance().getDiagnostics();
         return e.Report(loc, e.getDiagnosticIDs()->getCustomDiagID(desc));
     }
 
