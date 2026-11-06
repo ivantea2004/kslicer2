@@ -1,4 +1,5 @@
 #include "kslicer/utils.hpp"
+#include "kslicer/utils/assert.hpp"
 #include "kslicer/utils/compiler.hpp"
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Lex/Lexer.h>

@@ -1,3 +1,4 @@
+#include "kslicer/utils/assert.hpp"
 #include <clang/Sema/ParsedAttr.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaDiagnostic.h>

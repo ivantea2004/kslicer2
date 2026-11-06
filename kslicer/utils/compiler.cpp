@@ -1,4 +1,5 @@
 #include "kslicer/utils/compiler.hpp"
+#include "kslicer/utils/assert.hpp"
 #include <clang/AST/ASTConsumer.h>
 #include <clang/Frontend/FrontendAction.h>
 #include <clang/Tooling/CommonOptionsParser.h>

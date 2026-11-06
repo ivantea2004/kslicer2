@@ -1,4 +1,11 @@
 #pragma once
 
-#include "kslicer/utils/assert.hpp"
-#include "kslicer/utils/do_not_use_printf_and_cout_use_llvm_outs_instead.hpp"
+#include <cstdio>
+
+#define printf(...) DO_NOT_USE_PRINTF_USE_LLVM_OUTS_INSTEAD()
+#define fprintf(...) DO_NOT_USE_PRINTF_USE_LLVM_OUTS_INSTEAD()
+
+#define cout DO_NOT_USE_COUT_AND_DO_NOT_INCLUDE_IOSTREAM_USE_LLVM_OUTS_INSTEAD
+#define cerr DO_NOT_USE_COUT_AND_DO_NOT_INCLUDE_IOSTREAM_USE_LLVM_OUTS_INSTEAD_
+#define clog DO_NOT_USE_COUT_AND_DO_NOT_INCLUDE_IOSTREAM_USE_LLVM_OUTS_INSTEAD__
+#define cin DO_NOT_USE_COUT_AND_DO_NOT_INCLUDE_IOSTREAM_USE_LLVM_OUTS_INSTEAD___

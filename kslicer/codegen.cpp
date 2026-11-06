@@ -1,5 +1,6 @@
 #include "kslicer/codegen.hpp"
 #include "kslicer/utils.hpp"
+#include "kslicer/utils/assert.hpp"
 #include "kslicer/utils/diagnostics.hpp"
 
 namespace kslicer {

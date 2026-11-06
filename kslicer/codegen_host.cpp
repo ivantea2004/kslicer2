@@ -2,6 +2,7 @@
 #include "kslicer/class_info.hpp"
 #include "kslicer/codegen.hpp"
 #include "kslicer/utils.hpp"
+#include "kslicer/utils/assert.hpp"
 #include "kslicer/utils/diagnostics.hpp"
 #include "kslicer/utils/io.hpp"
 #include "kslicer/utils/template_rendering.hpp"
