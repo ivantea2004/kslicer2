@@ -1,6 +1,6 @@
 #include "kslicer/core/kslicer_main.hpp"
-#include "kslicer/command_line.hpp"
-#include "kslicer/config.hpp"
+#include "kslicer/core/command_line.hpp"
+#include "kslicer/core/config.hpp"
 #include "kslicer/core/slicing.hpp"
 #include "kslicer/utils/compiler_instance.hpp"
 #include "kslicer/utils/run_compiler.hpp"

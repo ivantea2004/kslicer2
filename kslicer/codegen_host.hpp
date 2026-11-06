@@ -1,6 +1,6 @@
 #pragma once
 #include "kslicer/class_info.hpp"
-#include "kslicer/config.hpp"
+#include "kslicer/core/config.hpp"
 
 namespace kslicer {
 

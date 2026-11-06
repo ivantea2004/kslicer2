@@ -1,5 +1,5 @@
 #pragma once
-#include "kslicer/config.hpp"
+#include "kslicer/core/config.hpp"
 
 namespace kslicer {
 

@@ -1,4 +1,4 @@
-#include "kslicer/config.hpp"
+#include "kslicer/core/config.hpp"
 #include "kslicer/utils/diagnostics.hpp"
 #include "kslicer/utils/io.hpp"
 #define JSON_DIAGNOSTIC_POSITIONS 1
