@@ -14,6 +14,10 @@ namespace kslicer {
         return CustomDiagDesc(clang::diag::Severity::Error, format_, DiagnosticIDs::Class::CLASS_ERROR, true, true);
     }
 
+    FatalError::operator kslicer::CustomDiagDesc() const {
+        return CustomDiagDesc(clang::diag::Severity::Fatal, format_, DiagnosticIDs::Class::CLASS_TRAP, true, true);
+    }
+
     Warning::operator kslicer::CustomDiagDesc() const {
         return CustomDiagDesc(clang::diag::Severity::Warning, format_, DiagnosticIDs::Class::CLASS_WARNING, true, true);
     }

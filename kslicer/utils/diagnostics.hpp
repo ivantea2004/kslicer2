@@ -21,6 +21,16 @@ namespace kslicer {
         const char* format_;
     };
 
+    struct FatalError {
+        template <size_t N>
+        explicit FatalError(const char (&format)[N]) : format_(format) {}
+
+        operator CustomDiagDesc() const;
+
+    private:
+        const char* format_;
+    };
+
     struct Warning {
         template <size_t N>
         explicit Warning(const char (&format)[N]) : format_(format) {}
