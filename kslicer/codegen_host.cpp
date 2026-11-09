@@ -227,6 +227,7 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
                 codegen.buffer += ")\n";
                 codegen.render_statement(i.body, 1);
                 codegen.buffer += "}\n";
+                std::filesystem::create_directories(config.shaders_directory);
                 (void)write_entire_text_file(config.shaders_directory / (i.decl->getNameAsString() + ".slang"),
                                              codegen.buffer);
             }
