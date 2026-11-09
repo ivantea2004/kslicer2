@@ -3,11 +3,14 @@
 #include "kslicer/codegen.hpp"
 #include "kslicer/utils.hpp"
 #include "kslicer/utils/assert.hpp"
+#include "kslicer/utils/compiler_instance.hpp"
 #include "kslicer/utils/diagnostics.hpp"
 #include "kslicer/utils/io.hpp"
 #include "kslicer/utils/template_rendering.hpp"
 #include <clang/AST/AST.h>
 #include <clang/AST/Attr.h>
+#include <clang/Basic/SourceManager.h>
+#include <clang/Frontend/CompilerInstance.h>
 #include <nlohmann/json.hpp>
 
 namespace kslicer {
@@ -817,7 +820,17 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
         data["TotalAccels"] = 0;
         // data["TotalDSNumber"] = 13; // WHY???
 
-        data["MainInclude"] = config.class_name + ".h";
+        {
+            auto class_decl = find_global_declaration(config.class_name);
+            auto loc = class_decl->getLocation();
+            auto& c = get_compiler_instance();
+            auto& s = c.getSourceManager();
+            std::string name = s.getBufferName(loc).str();
+
+            std::filesystem::path header_path = name;
+            header_path = std::filesystem::relative(header_path, class_directory);
+            data["MainInclude"] = header_path;
+        }
         data["GenGpuApi"] = false;
         data["AdditionalIncludes"] = json::array();
 
