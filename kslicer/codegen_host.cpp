@@ -444,6 +444,7 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
             field["Type"] = render_type_name(i->getType());
             field["IsArray"] = get_type_array_size(i->getType()) > 0;
             field["ArraySize"] = get_type_array_size(i->getType());
+            field["IsBool"] = false;
             field["IsDummy"] = false;
             data["UBO"]["UBOStructFields"].push_back(field);
         }
@@ -858,6 +859,10 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
 
         data["HasHashMaps"] = false;
         data["HashMapSubgroups"] = false;
+
+        data["NNWeights"] = json::array();
+        data["GlobalUseCoopVec"] = false;
+        data["GlobalUseScalarLayout"] = false;
 
         std::filesystem::path templates_directory = kslicer_directory / "templates";
         std::string file_name = config.class_name + config.suffix;
