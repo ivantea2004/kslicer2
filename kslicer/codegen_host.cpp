@@ -24,6 +24,8 @@ namespace kslicer {
         /*                                   Kernels                                  */
         /* -------------------------------------------------------------------------- */
 
+        std::string build_cmds = "";
+
         data["Kernels"] = json::array();
         for (const KernelInfo& i : info.kernels) {
             auto kernel = json::object();
@@ -230,10 +232,13 @@ float3   operator*(float3x3 m, float3 v) { return mul(m,v); }
                 std::filesystem::create_directories(config.shaders_directory);
                 (void)write_entire_text_file(config.shaders_directory / (i.decl->getNameAsString() + ".slang"),
                                              codegen.buffer);
+                build_cmds += "slangc " + (i.decl->getNameAsString() + ".slang") + " -o " +
+                              (i.decl->getNameAsString() + ".comp") + ".spv" + " -warnings-disable 39001\n";
             }
 
             data["Kernels"].push_back(kernel);
         }
+        (void)write_entire_text_file(config.shaders_directory / "build_slang.bat", build_cmds);
 
         data["KernelsDecls"] = json::array();
         for (const KernelInfo& i : info.kernels) {
