@@ -47,6 +47,7 @@ add_executable(kslicer2
     kslicer/utils/compiler_instance.cpp
     kslicer/utils/command_line_parser.cpp
     kslicer/utils/template_rendering.cpp
+    kslicer/utils/recursive_statement_iterator.cpp
 
     kslicer/core/main.cpp
     kslicer/core/kslicer_main.cpp
